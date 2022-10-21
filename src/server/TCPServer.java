@@ -41,6 +41,8 @@ class ClientHandler extends Thread {
     private TimekeeperDAO timekeeperDAO;
     private SalaryGradeDAO salaryGradeDAO;
 
+    
+
     // Constructor
     public ClientHandler(Socket s) throws IOException {
         this.s = s;
@@ -50,6 +52,8 @@ class ClientHandler extends Thread {
         this.objectOutputStream = new ObjectOutputStream(s.getOutputStream());
         this.departmentDAO = new DepartmentDAO();
         this.employeeDAO = new EmployeeDAO();
+        this.timekeeperDAO = new TimekeeperDAO();
+        this.salaryGradeDAO = new SalaryGradeDAO();
     }
 
     private String makeMenu() {

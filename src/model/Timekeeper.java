@@ -5,6 +5,8 @@
 package model;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -74,14 +76,18 @@ public class Timekeeper implements Serializable {
 
     public void createTimekeeper() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter employeeId: ");
+        this.employeeId = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter id: ");
-        this.id = scanner.nextInt();
+        this.id = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter date: ");
-        this.date = new Date(scanner.next());
+        try {
+            this.date =  new SimpleDateFormat("dd/MM/yyyy").parse(scanner.nextLine());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         System.out.println("Enter status: ");
         this.status = scanner.next().charAt(0);
-        System.out.println("Enter employeeId: ");
-        this.employeeId = scanner.nextInt();
     }
 
     public void updateTimekeeper() {

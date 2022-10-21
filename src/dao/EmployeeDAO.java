@@ -83,16 +83,20 @@ public class EmployeeDAO extends DAO{
     }
 
     public boolean update(Employee employee) {
-        String sql = "UPDATE employee SET EMP_NAME = ?, EMP_NO = ?, HIRE_DATE = ?, IMAGE = ?, JOB = ?, SALARY = ? WHERE EMP_ID = ?";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        String sql = "UPDATE employee SET EMP_NAME = ?, EMP_NO = ?, HIRE_DATE = ?, IMAGE = ?, JOB = ?, SALARY = ?, DEPT_ID = ? WHERE EMP_ID = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, employee.getName());
             ps.setString(2, employee.getNo());
-            ps.setDate(3, (Date) employee.getDate());
+            ps.setString(3, sdf.format(employee.getDate()));
             ps.setString(4, employee.getImage());
             ps.setString(5, employee.getJob());
             ps.setFloat(6, employee.getSalary());
-            ps.setInt(7, employee.getId());
+            ps.setInt(7, employee.getDepartmentId());
+            ps.setInt(8, employee.getId());
+
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
