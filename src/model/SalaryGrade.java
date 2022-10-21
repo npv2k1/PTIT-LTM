@@ -57,4 +57,7 @@ public class SalaryGrade implements Serializable {
                 ", highSalary=" + highSalary +
                 '}';
     }
+    public Object[] toObject() {
+        return new Object[] {grade, lowSalary, highSalary};
+    }
 }

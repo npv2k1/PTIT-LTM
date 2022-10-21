@@ -101,4 +101,8 @@ public class Timekeeper implements Serializable {
         System.out.println("Enter employeeId: ");
         this.employeeId = scanner.nextInt();
     }
+
+    public Object[] toObject() {
+        return new Object[] {id, date, status, employeeId};
+    }
 }

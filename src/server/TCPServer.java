@@ -41,7 +41,14 @@ class ClientHandler extends Thread {
     private TimekeeperDAO timekeeperDAO;
     private SalaryGradeDAO salaryGradeDAO;
 
-    
+    private void sendMessage(String message) {
+        try {
+            this.dataOutputStream.writeUTF(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     // Constructor
     public ClientHandler(Socket s) throws IOException {
@@ -237,7 +244,6 @@ class ClientHandler extends Thread {
                         break;
 
 
-
                     case "13":
                         toreturn = "Exit";
                         dataOutputStream.writeUTF(toreturn);
@@ -247,9 +253,15 @@ class ClientHandler extends Thread {
                         break;
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+//                e.printStackTrace();
+                break;
+//                Thread.currentThread().interrupt();
+
             } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
+                break;
+//                Thread.currentThread().interrupt();
+//                throw new RuntimeException(e);
+
             }
         }
 
@@ -259,10 +271,17 @@ class ClientHandler extends Thread {
             this.dataOutputStream.close();
             this.objectInputStream.close();
             this.objectOutputStream.close();
+            this.s.close();
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+
+            Thread.currentThread().interrupt()
+
+//            e.printStackTrace();
+            ;//preserve the message
+            return;
+
         }
     }
 }
@@ -289,7 +308,8 @@ public class TCPServer {
                 ClientHandler clientHandler = new ClientHandler(socket);
                 clientHandler.start();
             } catch (IOException e) {
-                e.printStackTrace();
+//                e.printStackTrace();
+                break;
             }
         }
     }

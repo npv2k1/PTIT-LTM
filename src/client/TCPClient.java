@@ -20,6 +20,12 @@ import java.util.Scanner;
  */
 public class TCPClient {
 
+    private static final int PORT = 5000;
+
+
+
+
+
     public static void main(String[] args) throws IOException {
         System.out.println("Client started");
         try {
@@ -90,9 +96,7 @@ public class TCPClient {
                         break;
                     case "5":
                         ArrayList<Employee> employees = (ArrayList<Employee>) objectInputStream.readObject();
-                        employees.forEach(employee ->
-                                System.out.println(employee.getId() + " " + employee.getName() + " " + employee.getNo() + " " + employee.getDate() + " " + employee.getImage() + " " + employee.getJob() + " " + employee.getSalary())
-                        );
+                        Employee.printList(employees);
                         break;
                     case "6":
                         Employee employee = new Employee();

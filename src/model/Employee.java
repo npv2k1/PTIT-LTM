@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.Scanner;
 
 /**
- *
  * @author nguyen
  */
 public class Employee implements Serializable {
@@ -26,6 +25,15 @@ public class Employee implements Serializable {
     private float salary;
 
     private int departmentId;
+    private Department department;
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 
     public int getDepartmentId() {
         return departmentId;
@@ -127,11 +135,11 @@ public class Employee implements Serializable {
         this.no = sc.nextLine();
         System.out.println("Nhập ngày: ");
         try {
-            this.date =  new SimpleDateFormat("dd/MM/yyyy").parse(sc.nextLine());
+            this.date = new SimpleDateFormat("dd/MM/yyyy").parse(sc.nextLine());
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        ;
+
         System.out.println("Nhập ảnh: ");
         this.image = sc.nextLine();
         System.out.println("Nhập công việc: ");
@@ -147,12 +155,31 @@ public class Employee implements Serializable {
         System.out.println("Nhập số nhân viên: ");
         this.no = sc.nextLine();
         System.out.println("Nhập ngày: ");
-        this.date = new Date(sc.nextLine());
+        try {
+            this.date = new SimpleDateFormat("dd/MM/yyyy").parse(sc.nextLine());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         System.out.println("Nhập ảnh: ");
         this.image = sc.nextLine();
         System.out.println("Nhập công việc: ");
         this.job = sc.nextLine();
         System.out.println("Nhập lương: ");
         this.salary = Float.parseFloat(sc.nextLine());
+    }
+
+    public static void printList(ArrayList<Employee> list){
+        // print title
+        System.out.printf("%-10s%-20s%-20s%-20s%-20s%-20s%-20s%-20s", "ID", "Name", "No", "Date", "Image", "Job", "Salary", "DepartmentId");
+        System.out.println();
+        // print list
+        for (Employee employee : list) {
+            System.out.printf("%-10s%-20s%-20s%-20s%-20s%-20s%-20s%-20s", employee.getId(), employee.getName(), employee.getNo(), employee.getDate(), employee.getImage(), employee.getJob(), employee.getSalary(), employee.getDepartmentId());
+            System.out.println();
+        }
+    }
+
+    public Object[] toObject() {
+        return new Object[]{this.id, this.name, this.no, this.date, this.image, this.job, this.salary, this.departmentId};
     }
 }

@@ -105,4 +105,7 @@ public class Department implements Serializable {
                 ", location='" + location + '\'' +
                 '}';
     }
+    public Object[] toObject() {
+        return new Object[] { id, name, no, location };
+    }
 }
