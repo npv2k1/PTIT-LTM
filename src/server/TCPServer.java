@@ -213,6 +213,7 @@ class ClientHandler extends Thread {
                         } else {
                             toreturn = "Thêm thất bại";
                         }
+                        dataOutputStream.writeUTF(toreturn);
                         break;
                     case "11":
                         String timekeeperId = dataInputStream.readUTF();
