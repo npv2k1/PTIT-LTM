@@ -4,13 +4,15 @@
  */
 package server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import dao.DepartmentDAO;
+import model.Department;
+
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -26,14 +28,21 @@ class ClientHandler extends Thread
     DateFormat fortime = new SimpleDateFormat("hh:mm:ss");
     final DataInputStream dataInputStream;
     final DataOutputStream dataOutputStream;
+
+    final ObjectInputStream objectInputStream;
+    final ObjectOutputStream objectOutputStream;
     final Socket s;
 
+    private DepartmentDAO departmentDAO;
 
     // Constructor
     public ClientHandler(Socket s) throws IOException {
         this.s = s;
         this.dataInputStream = new DataInputStream(s.getInputStream());
         this.dataOutputStream = new DataOutputStream(s.getOutputStream());
+        this.objectInputStream = new ObjectInputStream(s.getInputStream());
+        this.objectOutputStream = new ObjectOutputStream(s.getOutputStream());
+        this.departmentDAO = new DepartmentDAO();
     }
 
     private String makeMenu(){
@@ -89,7 +98,8 @@ class ClientHandler extends Thread
 
                     case "1":
                         toreturn = "Danh sách phòng ban";
-                        dataOutputStream.writeUTF(toreturn);
+                        ArrayList<Department> departments = departmentDAO.getAll();
+                        objectOutputStream.writeObject(departments);
                         break;
 
                     case "Date" :

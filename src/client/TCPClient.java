@@ -4,11 +4,12 @@
  */
 package client;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import model.Department;
+
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -32,6 +33,8 @@ public class TCPClient {
             // obtaining input and out streams
             DataInputStream dataInputStream = new DataInputStream(s.getInputStream());
             DataOutputStream dataOutputStream = new DataOutputStream(s.getOutputStream());
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(s.getOutputStream());
+            ObjectInputStream objectInputStream = new ObjectInputStream(s.getInputStream());
 
             // the following loop performs the exchange of
             // information between client and client handler
@@ -49,6 +52,26 @@ public class TCPClient {
                     s.close();
                     System.out.println("Connection closed");
                     break;
+                }
+                switch (tosend){
+                    case "1":
+                        ArrayList<Department> listDepartment = (ArrayList<Department>) objectInputStream.readObject();
+                        listDepartment.forEach((department) -> {
+                            System.out.println(department.getId() + " " + department.getName() + " " + department.getNo() + " " + department.getLocation());
+                        });
+                        break;
+                    case "2":
+                        System.out.println(dataInputStream.readUTF());
+                        break;
+                    case "3":
+                        System.out.println(dataInputStream.readUTF());
+                        break;
+                    case "4":
+                        System.out.println(dataInputStream.readUTF());
+                        break;
+                    default:
+                        System.out.println(dataInputStream.readUTF());
+                        break;
                 }
 
                 // printing date or time as requested by client
