@@ -24,18 +24,36 @@ class ClientHandler extends Thread
 {
     DateFormat fordate = new SimpleDateFormat("yyyy/MM/dd");
     DateFormat fortime = new SimpleDateFormat("hh:mm:ss");
-    final DataInputStream dis;
-    final DataOutputStream dos;
+    final DataInputStream dataInputStream;
+    final DataOutputStream dataOutputStream;
     final Socket s;
 
 
     // Constructor
-    public ClientHandler(Socket s, DataInputStream dis, DataOutputStream dos)
-    {
+    public ClientHandler(Socket s) throws IOException {
         this.s = s;
-        this.dis = dis;
-        this.dos = dos;
+        this.dataInputStream = new DataInputStream(s.getInputStream());
+        this.dataOutputStream = new DataOutputStream(s.getOutputStream());
     }
+
+    private String makeMenu(){
+        String newLine = System.getProperty("line.separator");
+        StringBuilder string = new StringBuilder();
+        String array[] = {
+                "Lựa chọn: ",
+                "1. DS Phòng ban",
+                "2. Thêm phòng ban",
+                "3. Sửa phòng ban",
+                "4. Xóa phòng ban",
+        };
+
+        for(int i=0 ; i < array.length ; i++){
+            string.append(array[i]);
+            string.append(newLine);
+        }
+        return string.toString();
+    }
+
 
     @Override
     public void run()
@@ -47,11 +65,11 @@ class ClientHandler extends Thread
             try {
 
                 // Ask user what he wants
-                dos.writeUTF("What do you want?[Date | Time]..\n"+
-                        "Type Exit to terminate connection.");
+                String menu = makeMenu();
+                dataOutputStream.writeUTF(menu);
 
                 // receive the answer from client
-                received = dis.readUTF();
+                received = dataInputStream.readUTF();
 
                 if(received.equals("Exit"))
                 {
@@ -69,18 +87,23 @@ class ClientHandler extends Thread
                 // answer from the client
                 switch (received) {
 
+                    case "1":
+                        toreturn = "Danh sách phòng ban";
+                        dataOutputStream.writeUTF(toreturn);
+                        break;
+
                     case "Date" :
                         toreturn = fordate.format(date);
-                        dos.writeUTF(toreturn);
+                        dataOutputStream.writeUTF(toreturn);
                         break;
 
                     case "Time" :
                         toreturn = fortime.format(date);
-                        dos.writeUTF(toreturn);
+                        dataOutputStream.writeUTF(toreturn);
                         break;
 
                     default:
-                        dos.writeUTF("Invalid input");
+                        dataOutputStream.writeUTF("Invalid input");
                         break;
                 }
             } catch (IOException e) {
@@ -91,8 +114,8 @@ class ClientHandler extends Thread
         try
         {
             // closing resources
-            this.dis.close();
-            this.dos.close();
+            this.dataInputStream.close();
+            this.dataOutputStream.close();
 
         }catch(IOException e){
             e.printStackTrace();
@@ -118,7 +141,7 @@ public class TCPServer {
                 Socket socket = serverSocket.accept();
                 DataInputStream dis = new DataInputStream(socket.getInputStream());
                 DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-                ClientHandler clientHandler = new ClientHandler(socket, dis, dos);
+                ClientHandler clientHandler = new ClientHandler(socket);
                 clientHandler.start();
             } catch (IOException e) {
                 throw new RuntimeException(e);

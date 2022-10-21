@@ -30,16 +30,16 @@ public class TCPClient {
             Socket s = new Socket(ip, 5000);
 
             // obtaining input and out streams
-            DataInputStream dis = new DataInputStream(s.getInputStream());
-            DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+            DataInputStream dataInputStream = new DataInputStream(s.getInputStream());
+            DataOutputStream dataOutputStream = new DataOutputStream(s.getOutputStream());
 
             // the following loop performs the exchange of
             // information between client and client handler
             while (true)
             {
-                System.out.println(dis.readUTF());
+                System.out.println(dataInputStream.readUTF());
                 String tosend = scn.nextLine();
-                dos.writeUTF(tosend);
+                dataOutputStream.writeUTF(tosend);
 
                 // If client sends exit,close this connection
                 // and then break from the while loop
@@ -52,14 +52,14 @@ public class TCPClient {
                 }
 
                 // printing date or time as requested by client
-                String received = dis.readUTF();
+                String received = dataInputStream.readUTF();
                 System.out.println(received);
             }
 
             // closing resources
             scn.close();
-            dis.close();
-            dos.close();
+            dataInputStream.close();
+            dataOutputStream.close();
         }catch(Exception e){
             e.printStackTrace();
         }
