@@ -5,6 +5,7 @@
 package model;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  *
@@ -29,8 +30,39 @@ public class Department implements Serializable {
         this.location = location;
     }
 
+
     public Department() {
     }
+
+    public void createDepartment(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Nhập ID:");
+        this.id = Integer.parseInt(sc.nextLine());
+        System.out.println("Nhập tên phòng ban: ");
+        this.name = sc.nextLine();
+        System.out.println("Nhập số phòng ban: ");
+        this.no = sc.nextLine();
+        System.out.println("Nhập địa điểm: ");
+        this.location = sc.nextLine();
+    }
+
+    public void updateDepartment(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Nhập tên phòng ban: ");
+        this.name = sc.nextLine();
+        System.out.println("Nhập số phòng ban: ");
+        this.no = sc.nextLine();
+        System.out.println("Nhập địa điểm: ");
+        this.location = sc.nextLine();
+    }
+
+    public void printDepartment(){
+        System.out.println("ID: " + this.id);
+        System.out.println("Tên phòng ban: " + this.name);
+        System.out.println("Số phòng ban: " + this.no);
+        System.out.println("Địa điểm: " + this.location);
+    }
+
 
     public String getName() {
         return name;
