@@ -6,15 +6,11 @@ package socket;
 
 import control.IRemoteClient;
 import control.RemoteClient;
-import java.net.MalformedURLException;
-import java.rmi.AccessException;
-import java.rmi.AlreadyBoundException;
-import java.rmi.Naming;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
+import java.net.*;
+import java.rmi.*;
+import java.rmi.registry.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.rmi.registry.Registry;
 
 /**
  *
