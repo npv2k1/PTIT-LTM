@@ -51,17 +51,17 @@ public class TH3 {
 
                 objectOS.writeObject(ans);
 
-//                RMI client call
-                try {                   
+                // RMI client call
+                try {
 
                     String host = InetAddress.getLocalHost().getHostName();
 
                     Registry registry = LocateRegistry.getRegistry(host, 12345);
-                    
-                      String[] services = registry.list();
-            for (String service : services) {
-                System.out.println(service);
-            }
+
+                    String[] services = registry.list();
+                    for (String service : services) {
+                        System.out.println(service);
+                    }
 
                     IRemoteClient rmiClient = (IRemoteClient) registry.lookup(services[0]);
 

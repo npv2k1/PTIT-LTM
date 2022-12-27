@@ -36,6 +36,8 @@ public class TCPClient {
             ObjectOutputStream objectOS = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream objectIS = new ObjectInputStream(socket.getInputStream());
 
+            
+
 
             // Gửi đối tượng lên server
             objectOS.writeObject(s);

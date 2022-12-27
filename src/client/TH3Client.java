@@ -21,42 +21,29 @@ import model.Student;
  * @author nguyen
  */
 public class TH3Client {
-      public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         System.out.println("Start");
         try {
-            Socket socket = new Socket(InetAddress.getLocalHost().getHostName(),11310);
+            Socket socket = new Socket(InetAddress.getLocalHost().getHostName(), 11310);
             DataOutputStream dataOS = new DataOutputStream(socket.getOutputStream());
             dataOS.writeUTF("server");
             Student s = new Student();
-            s.setMaSv("server");        
-            
-            
-          
-            
+            s.setMaSv("server");
+
             ObjectOutputStream objectOS = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream objectIS = new ObjectInputStream(socket.getInputStream());
 
-
-            
             objectOS.writeObject(s);
-            
-            
+
             Answer ans = (Answer) objectIS.readObject();
-            
-            System.out.println("Student"+ ans.getStudent().getMaSv());
+
+            System.out.println("Student" + ans.getStudent().getMaSv());
             System.out.println("Success" + ans.isSuccess());
-            
-            
-            
-            
-            
-            
-            
+
         } catch (UnknownHostException ex) {
             Logger.getLogger(TCPClient.class.getName()).log(Level.SEVERE, null, ex);
-        }    
+        }
         System.out.println("Done");
-        
-        
+
     }
 }
