@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.10.8
+Created-By: 17.0.2+8-LTS (Azul Systems, Inc.)
+Class-Path: lib/poi-examples-5.2.3.jar lib/poi-5.2.3.jar lib/poi-excel
+ ant-5.2.3.jar lib/poi-javadoc-5.2.3.jar lib/poi-ooxml-5.2.3.jar lib/p
+ oi-ooxml-full-5.2.3.jar lib/poi-ooxml-lite-5.2.3.jar lib/poi-scratchp
+ ad-5.2.3.jar
+X-COMMENT: Main-Class will be added automatically by build
+Main-Class: rmiserver_class.RMIServer_Class
+

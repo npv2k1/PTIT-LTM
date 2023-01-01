@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.10.8
+Created-By: 17.0.2+8-LTS (Azul Systems, Inc.)
+Class-Path: lib/poi-4.0.0.jar lib/poi-examples-4.0.0.jar lib/poi-excel
+ ant-4.0.0.jar lib/poi-ooxml-4.0.0.jar lib/poi-ooxml-schemas-4.0.0.jar
+  lib/poi-scratchpad-4.0.0.jar
+X-COMMENT: Main-Class will be added automatically by build
+Main-Class: server.FinalTest
+
